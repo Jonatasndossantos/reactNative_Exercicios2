@@ -572,6 +572,36 @@ export default function App(){
     }
     registrarExercicio(Exercicio16);
 
+    //function Exercicio17({ setResultado }) {
+    //    const [numero, setNumero] = useState("");
+    //
+    //    return (
+    //        <View>
+    //            <TextInput
+    //                style={styles.input}
+    //                value={numero}
+    //                onChangeText={setNumero}
+    //                placeholder="Número de 3 dígitos"
+    //                keyboardType="numeric"
+    //            />
+    //            <TouchableOpacity
+    //                style={styles.btn}
+    //                onPress={() => {
+    //                    const n = parseInt(numero);
+    //                    if (isNaN(n) || n < 100 || n > 999) {
+    //                        setResultado("❌ Digite um número de exatamente 3 dígitos");
+    //                        return;
+    //                    }
+    //
+    //                    const invertido = numero.split("").reverse().join("");
+    //                    setResultado(`🔁 Invertido: ${invertido}`);
+    //                }}
+    //            >
+    //                <Text style={styles.closeButtonText}>Inverter</Text>
+    //            </TouchableOpacity>
+    //        </View>
+    //    );
+    //}
     function Exercicio17({ setResultado }) {
         const [numero, setNumero] = useState("");
     
@@ -593,7 +623,11 @@ export default function App(){
                             return;
                         }
     
-                        const invertido = numero.split("").reverse().join("");
+                        const a = Math.floor(n / 100);         // centena
+                        const b = Math.floor((n % 100) / 10);  // dezena
+                        const c = n % 10;                      // unidade
+    
+                        const invertido = c * 100 + b * 10 + a;
                         setResultado(`🔁 Invertido: ${invertido}`);
                     }}
                 >
@@ -645,6 +679,98 @@ export default function App(){
         );
     }
     registrarExercicio(Exercicio18);
+    
+    function Exercicio19({ setResultado }) {
+        const [valor, setValor] = useState("");
+    
+        return (
+            <View>
+                <TextInput
+                    style={styles.input}
+                    value={valor}
+                    onChangeText={setValor}
+                    placeholder="Digite um número decimal"
+                    keyboardType="numeric"
+                />
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => {
+                        const num = parseFloat(valor);
+                        if (isNaN(num)) {
+                            setResultado("❌ Informe um número válido");
+                            return;
+                        }
+    
+                        const arredondado = Math.round(num);
+                        setResultado(`🧮 Arredondado: ${arredondado}`);
+                    }}
+                >
+                    <Text style={styles.closeButtonText}>Arredondar</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+    registrarExercicio(Exercicio19);
+
+    function Exercicio20({ setResultado }) {
+        const [a, setA] = useState("");
+        const [b, setB] = useState("");
+        const [c, setC] = useState("");
+    
+        return (
+            <View>
+                <TextInput
+                    style={styles.input}
+                    value={a}
+                    onChangeText={setA}
+                    placeholder="Lado A"
+                    keyboardType="numeric"
+                />
+                <TextInput
+                    style={styles.input}
+                    value={b}
+                    onChangeText={setB}
+                    placeholder="Lado B"
+                    keyboardType="numeric"
+                />
+                <TextInput
+                    style={styles.input}
+                    value={c}
+                    onChangeText={setC}
+                    placeholder="Lado C"
+                    keyboardType="numeric"
+                />
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => {
+                        const ladoA = parseFloat(a);
+                        const ladoB = parseFloat(b);
+                        const ladoC = parseFloat(c);
+    
+                        if ([ladoA, ladoB, ladoC].some(v => isNaN(v) || v <= 0)) {
+                            setResultado("❌ Insira medidas válidas e maiores que zero");
+                            return;
+                        }
+                        
+                        // Expressões condicionais retornam diretamente true ou false
+                        // sem necessidade de declarar uma variável boolean explícita
+                        const formaTriangulo =
+                            ladoA + ladoB > ladoC &&
+                            ladoA + ladoC > ladoB &&
+                            ladoB + ladoC > ladoA;
+                            
+                        // Resultado baseado no valor booleano
+                        setResultado(formaTriangulo
+                            ? "✅ Forma um triângulo válido"
+                            : "❌ Não forma um triângulo");
+                    }}
+                >
+                    <Text style={styles.closeButtonText}>Verificar</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+    registrarExercicio(Exercicio20);
     
     
     
